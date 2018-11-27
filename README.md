@@ -1,4 +1,5 @@
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/spezold/python-intro/master)
+
 *The contents of this repository are licensed under a CreativeCommons license ([CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/))*
 
 # Python in a Nutshell
