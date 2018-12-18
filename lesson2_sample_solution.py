@@ -2,14 +2,14 @@
 In this lesson, we will
 - create a 2D plot of a 1D sine wave
 - create a 3D plot of a 2D sine wave
-- load an image and apply a median filter
+- show an image and apply a median filter
 """
 
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
 import matplotlib.pyplot as plt
 import numpy as np
-import skimage
+from skimage import util, filters, data
 
 def draw_sine_2d(amplitude=1, num_values=1000, x_min=0, x_max=2 * np.pi):
     """
@@ -56,14 +56,14 @@ def draw_sine_3d(amplitude=1, num_x_values=1000, num_y_values=1000,
 
 def load_sample_image(degrade=True):
     """
-    Load the sample image "python.png".
+    Load the sample "camera" image.
     
-    :param degrade: If True, add a bit of salt and pepeer noise.
+    :param degrade: If True, add a bit of salt and pepper noise.
     :return: The sample image as a 512x512 Numpy array, with values in [0, 1].
     """
-    img = skimage.io.imread("python.png") / 255.
+    img = data.camera() / 255.
     if degrade:
-        img = skimage.util.random_noise(img, mode="s&p", seed=1337)
+        img = util.random_noise(img, mode="s&p", seed=1337)
     return img
     
 
@@ -97,16 +97,15 @@ def filter_image2(img, radius=1):
     :param radius: Filter size will be a square of side length `2 * radius + 1`
     """
     flt = np.ones((2 * radius + 1, 2 * radius + 1))
-    result = skimage.filters.median(img, flt) / 255.
+    result = filters.median(img, flt) / 255.
 
     return result
 
-    
-if __name__ == "__main__":
 
-    draw_sine_2d(3)
-    draw_sine_3d(5)
-    
+def image_example():
+    """
+    Load the demo image, degrade it, restore it, then show the results.
+    """
     img_degraded = load_sample_image()
     img_original = load_sample_image(degrade=False)
     
